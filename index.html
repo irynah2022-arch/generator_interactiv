@@ -43,11 +43,10 @@
       gap: 10px;
       margin-bottom: 20px;
       padding: 0 10px;
-      background: rgba(255,255,255,0.95); /* Единый белый фон как в других генераторах */
+      background: rgba(255,255,255,0.95);
       box-shadow: 0 2px 10px rgba(0,0,0,0.1);
       border-radius: 10px;
       padding: 15px;
-      /* УБРАНО: position: fixed — теперь прокручивается вместе со страницей */
     }
     .author-signature {
       font-style: normal;
@@ -80,7 +79,7 @@
       height: auto;
       min-width: 100px;
       border: none;
-      color: white !important; /* Белый шрифт на всех кнопках */
+      color: white !important;
       font-weight: bold;
       cursor: pointer;
     }
@@ -177,7 +176,7 @@
       background: #7b1fa2;
     }
     #promptOutput {
-      display: none; /* Скрытый блок для хранения промпта */
+      display: none;
     }
     footer {
       text-align: center;
@@ -186,7 +185,6 @@
       font-size: 14px;
     }
     
-    /* Стили для пошагового конструктора */
     .steps-container {
       margin-top: 20px;
     }
@@ -282,6 +280,7 @@
       <button style="background:#2196F3;" onclick="window.open('https://irynah2022-arch.github.io/my.generator.bel/', '_blank')">План-конспект урока</button>
       <button style="background:#8BC34A;" onclick="window.open('https://irynah2022-arch.github.io/generator-list/', '_blank')">Рабочий лист</button>
       <button style="background:#FF9800;" onclick="window.open('https://irynah2022-arch.github.io/generator-vizual/', '_blank')">Наглядный материал</button>
+      <button style="background:#FF5722;" onclick="window.open('https://irynah2022-arch.github.io/generator-interactive/', '_blank')">Интерактив</button>
       <button style="background:#009688;" onclick="window.open('https://eior.by/obrazovanie/obshchee-srednee/index.php', '_blank')">EIOR.by</button>
       <button style="background:#795548;" onclick="window.open('https://e-padruchnik.adu.by/', '_blank')">Электронные учебники</button>
       <button style="background:#FF5722;" onclick="window.open('https://gamma.app/ru', '_blank')">Gamma</button>
@@ -549,7 +548,6 @@
         return;
       }
 
-      // Словари предметов
       const subjectsRU = {
         bel_mova: "беларускому языку",
         bel_lit: "белорусской литературе",
@@ -614,7 +612,6 @@
         medpodgotovka: "медыцынскай падрыхтоўцы"
       };
 
-      // Определение языка генерации
       let isBelarusian = false;
       if (subjectKey === 'bel_mova' || subjectKey === 'bel_lit' || subjectKey === 'obuch_chtenie' || subjectKey === 'obuch_pismo') {
         isBelarusian = true;
@@ -626,7 +623,6 @@
 
       const subjectName = isBelarusian ? subjectsBE[subjectKey] : subjectsRU[subjectKey];
 
-      // Вводная часть с исправлением
       let intro = isBelarusian
         ? `Ты — настаўнік-метадыст Рэспублікі Беларусь па ${subjectName} і вопытны распрацоўшчык адукацыйных гульняў.`
         : `Ты — учитель-методист Республики Беларусь по ${subjectName} и опытный разработчик образовательных игр.`;
@@ -637,19 +633,16 @@
 
       let prompt = `${intro} ${languageInstruction}\n`;
 
-      // Основное задание
       prompt += isBelarusian
         ? `Ствары інтэрактыўную гульню для вучняў ${grade} класа на тэму «${topic}».\n\n`
         : `Создай интерактивную игру для учащихся ${grade} класса на тему «${topic}».\n\n`;
 
-      // Упражнение из учебника
       if (exerciseText) {
         prompt += isBelarusian
           ? `Умова задання:\n«${exerciseText}»\n\n`
           : `Условие задания:\n«${exerciseText}»\n\n`;
       }
 
-      // Тип интерактива
       const interactionTypesBE = {
         click: "Клікні і выберы правільны адказ",
         drag_drop: "Перацягні элементы ў правільныя месцы",
@@ -668,7 +661,6 @@
         ? `Тып інтэрактыўнага задання: ${interactionTypesBE[interactionType]}.\n`
         : `Тип интерактивного задания: ${interactionTypesRU[interactionType]}.\n`;
 
-      // Стиль оформления с исправлением для школьной доски
       const stylesBE = {
         pixar: "яркі, красачны стыль Піксар з насычанымі колерамі, вялікімі дружалюбнымі персанажамі, эмоджы і градыентамі",
         school: "школьная дошка цёмна-зялёнага колеру з крэйдай",
@@ -687,7 +679,6 @@
         ? `Стыль афармлення: ${stylesBE[style]}.\n`
         : `Стиль оформления: ${stylesRU[style]}.\n`;
 
-      // Уровень сложности
       const difficultiesBE = {
         easy: "просты",
         medium: "сярэдні",
@@ -704,7 +695,6 @@
         ? `Узровень складанасці: ${difficultiesBE[difficulty]}.\n`
         : `Уровень сложности: ${difficultiesRU[difficulty]}.\n`;
 
-      // Настройки игры
       prompt += isBelarusian
         ? `Колькасць пытанняў у гульні: ${questionCount}.\n`
         : `Количество вопросов в игре: ${questionCount}.\n`;
@@ -723,7 +713,6 @@
 
       prompt += `\n`;
 
-      // === ЛОГИКА ИГРЫ ===
       prompt += isBelarusian
         ? `**ЛОГІКА ГУЛЬНІ:**\n`
         : `**ЛОГИКА ИГРЫ:**\n`;
@@ -754,7 +743,6 @@
 
       prompt += `\n`;
 
-      // === КРИТИЧЕСКИ ВАЖНО: ТРЕБОВАНИЯ К КОНТЕКСТУ И АВТОНОМНОСТИ ===
       prompt += isBelarusian
         ? `– **Усе прыклады і заданні павінны быць звязаны з рэаліямі Беларусі**: геаграфіяй, прыродай, культурай і традыцыямі. Выкарыстоўвай дакладныя факты, пазбягай клішэ ўродзе «беларускія падснежнікі».\n`
         : `– **Все примеры и задания должны быть связаны с реалиями Беларуси**: географией, природой, культурой и традициями. Используй точные факты, избегай клише вроде «белорусские подснежники».\n`;
@@ -764,8 +752,8 @@
         : `– **ВАЖНО! Весь код должен быть в одном файле без внешних зависимостей:**\n`;
 
       prompt += isBelarusian
-        ? `  • ЗАБАРАНЯЕЦЦА выкарыстоўваць <script src="..."> і <link href="...">\n`
-        : `  • ЗАПРЕЩЕНО использовать <script src="..."> и <link href="...">\n`;
+        ? `  • ЗАБАРАНЯЕЦЦА выкарыстоўваць <script src=\"...\"> і <link href=\"...\">\n`
+        : `  • ЗАПРЕЩЕНО использовать <script src=\"..."> и <link href=\"...">\n`;
 
       prompt += isBelarusian
         ? `  • Усе стылі — толькі ўнутры <style>\n`
@@ -801,14 +789,11 @@
         ? `– НЕ ТЛУМАЧ — адразу выдай толькі код.`
         : `– НЕ ОБЪЯСНЯЙ — сразу выдай только код.`;
 
-      // Сохраняем промпт в скрытый блок
       document.getElementById('promptOutput').textContent = prompt;
       
-      // Активируем кнопки копирования и открытия
       document.getElementById('copyBtn').disabled = false;
       document.getElementById('openQwenBtn').disabled = false;
       
-      // Показываем уведомление
       alert(isBelarusian 
         ? "Промпт згенераваны! Націсніце «Скапіраваць», каб скапіраваць яго, а затым адкрыйце Qwen." 
         : "Промпт сгенерирован! Нажмите «Скопировать», чтобы скопировать его, а затем откройте Qwen.");
@@ -836,7 +821,6 @@
       window.open('https://chat.qwen.ai', '_blank');
     }
 
-    // Инициализация
     updateStepIndicator();
   </script>
 </body>
